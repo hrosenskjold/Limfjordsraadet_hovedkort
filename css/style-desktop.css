@@ -1,0 +1,60 @@
+@media screen and (min-width: 768px) {
+
+  #narration {
+    width: 60vw;
+    height: 200vh;
+    max-width: 500px;
+    top: 40px;
+    left: 40px;
+    padding: px;
+    // border: 1.5px;
+  
+  //  border-color: #0b0b0b;
+    padding-left: 25px;
+    padding-right: 25px;
+  //  border-style: none solid solid solid;
+    opacity: 0.8;
+
+    
+    
+  }
+
+  #map {
+    width: 100vw;
+    max-width: 10000px;
+    left: 00px;
+    height: 100vh;
+    border: 0;
+    z-index: 0;
+    top: 0px;
+   // border: 1.5px;
+   // border-color: #0b0b0b;
+   //  border-style: solid;
+
+    
+  }
+
+  #title {
+    width: 400px;
+    max-width: 520px;
+    top: 90px;
+     height: 0vh;
+
+   // border: 1.5px;
+   // border-color: #0b0b0b;
+   // padding-left: 25px;
+   // padding-right: 25px;
+    left: 100px;
+   // border-style: solid solid none solid;
+
+
+
+    
+    
+  }
+
+  .leaflet-control-attribution {
+    visibility: visible;
+  }
+
+}
