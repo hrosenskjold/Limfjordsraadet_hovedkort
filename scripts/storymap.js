@@ -152,7 +152,7 @@ $(window).on('load', function() {
         markers.push(
           L.marker([lat, lon], {
             icon: L.icon({
-               iconUrl: 'https://github.com/hrosenskjold/leaflet-storymaps-with-google-sheets/blob/lauout%2Bicon%2Battribute/markers/images/' + c['Chapter'] + '.png?raw=true',
+                             iconUrl: 'https://github.com/hrosenskjold/Limfjordsraadet_hovedkort/blob/main/markers/images/' + c['Chapter'] + '.png?raw=true',
           //   iconUrl: 'https://github.com/hrosenskjold/leaflet-storymaps-with-google-sheets/blob/main/markers/images/limfjordsraadet_nylogo.png?raw=true',
                iconSize: [75 , 75],
          //    iconSize: [c[Overlay], 50],
