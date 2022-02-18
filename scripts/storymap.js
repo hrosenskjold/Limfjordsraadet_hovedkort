@@ -155,7 +155,7 @@ $(window).on('load', function() {
                              iconUrl: 'https://github.com/hrosenskjold/Limfjordsraadet_hovedkort/blob/main/markers/images/' + c['Chapter'] + '.png?raw=true',
           //   iconUrl: 'https://github.com/hrosenskjold/leaflet-storymaps-with-google-sheets/blob/main/markers/images/limfjordsraadet_nylogo.png?raw=true',
          //      iconSize: [175 , 175],
-             iconSize: [c['Location'], 50],
+             iconSize: [c['Location'], ['Location']],
 
               number: c['Marker'] === 'Numbered' ? '' : chapterCount,
               markerColor: c['Marker Color'] || 'red'
