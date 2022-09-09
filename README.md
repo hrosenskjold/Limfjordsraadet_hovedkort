@@ -1,8 +1,2 @@
-# Version4
-
-https://hrosenskjold.github.io/Version4/
-
-
-Ordre til Git commit
-
-git commit -m "second commit"
+# 09092022
+Your site is live at https://hrosenskjold.github.io/Limfjordsraadet_hovedkort/
