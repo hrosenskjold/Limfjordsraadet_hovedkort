@@ -198,7 +198,7 @@
                     <input type='checkbox' name='fltSæler' value='Sæler' > <label  ><img src="img/Sæler.png" width="50px" alt="">&nbsp&nbsp&nbsp Sæler </label> 
                 </div>
                 <div class="col-xs-12">
-                    <input type='checkbox' name='fltVLBstrk' value='Vandplansindsats' > <label  ><img src="img/VLBstrk.png" width="50px" alt="">&nbsp&nbsp&nbsp Vandplansindsats strækninger </label> 
+                    <input type='checkbox' name='fltVLBstrk' value='Vandplansindsats' > <label  ><img src="img/VLBstrk.png" width="50px" alt="">&nbsp&nbsp&nbsp Vandplansindsats - strækninger </label> 
                 </div>
 
           </div>  
@@ -295,7 +295,7 @@
  
         lyrSæler = L.geoJSON.ajax('data/Sæler2.geojson', {pointToLayer:returnSælerMarker, onEachFeature:processSæler, filter:filterSæler}).addTo(mymap);
         
-        lyrVLBstrk = L.geoJSON.ajax('data/VLB_strk_2021.geojson',{onEachFeature:processVLBstrk, style:{weight:2}, filter:filterVLBstrk}).addTo(mymap);
+        lyrVLBstrk = L.geoJSON.ajax('data/VLB_strk_2021.geojson',{onEachFeature:processVLBstrk, style:{weight:3}, filter:filterVLBstrk}).addTo(mymap);
         
         lyrProjekter = L.geoJSON.ajax('data/Vådområder.geojson', {pointToLayer:returnProjekterMarker, onEachFeature:processProjekter, filter:filterProjekter}).addTo(mymap);
         lyrProjekter.on('data:loaded', function(){
@@ -447,12 +447,11 @@
                    att.TYPE=='Vandplansindsats'
                         lyr.bindPopup(	
                     "<h4><strong><center>"+"Vandplanindsats" +"</center></strong></h4>"+
+                    "<h5><strong>Indsatsnr.: </strong>"+att.G_DEL_CD+"</h5>"+
                     "<h5><strong>Vandløbsystem: </strong>"+att.G_V_SYS_1+"</h5>"+
                     "<h5><strong>Vandløbsnavn: </strong>"+att.G_VLNAVN_1+"</h5>"+
                     "<h5><strong>Indsatstype(r): </strong>"+att.TYPE_2018+"</h5>"+
-
-
-                    "<h5><strong>Status 2021: </strong>"+att.STATUS2021+"</h5>"
+                    "<h5><strong>Status pr. 1/1 2022: </strong>"+att.STATUS2021+"</h5>"
                     );
 
         arProjekterIDs.push(att.TYPE.toString())
