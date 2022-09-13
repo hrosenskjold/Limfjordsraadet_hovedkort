@@ -200,6 +200,9 @@
                 <div class="col-xs-12">
                     <input type='checkbox' name='fltVLBstrk' value='Vandplansindsats' > <label  ><img src="img/VLBstrk.png" width="50px" alt="">&nbsp&nbsp&nbsp Vandplansindsats - strækninger </label> 
                 </div>
+                <div class="col-xs-12">
+                    <input type='checkbox' name='fltVLBpkt' value='Vandplanindsats' > <label  ><img src="img/Spærring.png" width="50px" alt="">&nbsp&nbsp&nbsp Vandplansindsats - punkter </label> 
+                </div>
 
           </div>  
              <button id='btnLocate' class='btn-lg btn-block zoombtn'>Tilbage til kort</button><br>
@@ -216,15 +219,16 @@
             var ctrlLayers
             var Overlays
             var Basemaps
-            var ctlSidebar;
-            var ctlEasybutton;
-            var lyrProjekter;
-            var lyrGarn;
-            var lyrSæler;
+            var ctlSidebar
+            var ctlEasybutton
+            var lyrProjekter
+            var lyrGarn
+            var lyrSæler
             var lyrVLBstrk
-            var lavbund;
+            var lyrVLBpkt
+            var lavbund
             var fosfor
-            var Spøgelsesnet;
+            var Spøgelsesnet
             var kvælstof
             var ecoEngineering
             var aalegraes
@@ -232,7 +236,8 @@
             var arProjekterIDs = [];
             var arGarnIDs = [];
             var arSælerIDs = [];
-            var VLBstrkIDs = [];
+            var arVLBstrkIDs = [];
+            var arVLBpktIDs = [];
 
 
 
@@ -247,6 +252,8 @@
                 fosfor = L.icon({iconUrl:'img/fosfor.png', iconSize:[15,15], iconAnchor:[5,5]});
                 Sæler = L.icon({iconUrl:'img/Sæler.png', iconSize:[15,15], iconAnchor:[5,5]});
                 VLBstrk = L.icon({iconUrl:'img/VLBstrk.png', iconSize:[40,40], iconAnchor:[20,20]});
+                VLBpkt = L.icon({iconUrl:'img/Spærring.png', iconSize:[15,15], iconAnchor:[5,5]});
+
 
 
         // Her indstilles kortets startposition 
@@ -296,6 +303,9 @@
         lyrSæler = L.geoJSON.ajax('data/Sæler2.geojson', {pointToLayer:returnSælerMarker, onEachFeature:processSæler, filter:filterSæler}).addTo(mymap);
         
         lyrVLBstrk = L.geoJSON.ajax('data/VLB_strk_2021.geojson',{onEachFeature:processVLBstrk, style:{weight:3}, filter:filterVLBstrk}).addTo(mymap);
+
+        lyrVLBpkt = L.geoJSON.ajax('data/VLB_pkt_2021.geojson',{pointToLayer:returnVLBpktMarker, onEachFeature:processVLBpkt, filter:filterVLBpkt}).addTo(mymap);
+
         
         lyrProjekter = L.geoJSON.ajax('data/Vådområder.geojson', {pointToLayer:returnProjekterMarker, onEachFeature:processProjekter, filter:filterProjekter}).addTo(mymap);
         lyrProjekter.on('data:loaded', function(){
@@ -316,11 +326,15 @@
             mymap.setView(e.latlng, 10);
                 });
        
-         lyrSæler.on('click', function (e) {
+        lyrSæler.on('click', function (e) {
             mymap.setView(e.latlng, 10);
                 });
 
-                lyrVLBstrk.on('click', function (e) {
+        lyrVLBstrk.on('click', function (e) {
+            mymap.setView(e.latlng, 10);
+                });
+
+        lyrVLBpkt.on('click', function (e) {
             mymap.setView(e.latlng, 10);
                 });
                       
@@ -434,7 +448,7 @@
         function returnVLBstrkMarker(json, latlng){
                 var att = json.properties;
 
-                if (att.TYPE=='Vandplansindsats') {
+                if (att.TYPE=='Vandplanindsats') {
                 var projekttype = VLBstrk;
                 } 
                 else {
@@ -456,6 +470,32 @@
 
         arProjekterIDs.push(att.TYPE.toString())
                             }
+
+        function returnVLBpktMarker(json, latlng){
+                var att = json.properties;
+
+                if (att.TYPE=='Vandplanindsats') {
+                var projekttype = VLBpkt;
+                } 
+                else {
+                    var projekttype = kvælstof;
+                }
+                return L.marker(latlng, {icon:projekttype})
+                }
+        function processVLBpkt(json, lyr){
+                   var att = json.properties;
+                   att.TYPE=='Vandplanindsats'
+                        lyr.bindPopup(	
+                    "<h4><strong><center>"+"Vandplanindsats" +"</center></strong></h4>"+
+                    "<h5><strong>Indsatsnr.: </strong>"+att.SPERRINGNR+"</h5>"+
+                    "<h5><strong>Vandløbsystem: </strong>"+att.VANDLOBSSY+"</h5>"+
+                    "<h5><strong>Vandløbsnavn: </strong>"+att.VANDLOB+"</h5>"+
+                    "<h5><strong>Indsatstype(r): </strong>"+att.INDSATS+"</h5>"+
+                    "<h5><strong>Status pr. 1/1 2022: </strong>"+att.STATUS2021+"</h5>"
+                    );
+
+        arProjekterIDs.push(att.TYPE.toString())
+                            }       
          // her laves filter til kortlag - ikke en del af radiobuttons
             function filterProjekter(json){
                 var att = json.properties;
@@ -542,6 +582,15 @@
                 return (att.TYPE==optFilter);
             }
             }
+            function filterVLBpkt(json){
+                var att=json.properties;
+                var optFilter = $("input[name=fltVLBpkt]:checked").val();
+                if(optFilter=="Alle"){
+                    return true;
+            } else {
+                return (att.TYPE==optFilter);
+            }
+            }
             //radio button j-query
            
             $("#lblProject").click(function(){
@@ -613,10 +662,21 @@
                 return (att.TYPE==optFilter);
             }
             }
+            
 
             function filterVLBstrk(json){
                 var att=json.properties;
                 var optFilter = $("input[name=fltVLBstrk]:checked").val();
+                if(optFilter=="Alle"){
+                    return true;
+            } else {
+                return (att.TYPE==optFilter);
+            }
+            }
+
+            function filterVLBpkt(json){
+                var att=json.properties;
+                var optFilter = $("input[name=fltVLBpkt]:checked").val();
                 if(optFilter=="Alle"){
                     return true;
             } else {
@@ -658,6 +718,15 @@
             $("input[name=fltVLBstrk]").click(function(){
                 arVLBstrkIDs=[];
                 lyrVLBstrk.refresh();
+            });  
+
+            $("#lblVLBpkt").click(function(){
+                $("#divVLBpktData").toggle(); 
+            });
+           
+            $("input[name=fltVLBpkt]").click(function(){
+                arVLBpktIDs=[];
+                lyrVLBpkt.refresh();
             });  
  
 
