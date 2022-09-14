@@ -294,6 +294,24 @@
             
             }).addTo(mymap);
 
+            //   *********** her oprettes indstilles visning på zoomniveau for dybdekort**********          
+
+
+            mymap.on("zoomend", function() {
+                var zoomlevel = mymap.getZoom();
+                if (zoomlevel > 12) {
+                    if (
+                        mymap.hasLayer(dybde)) {
+                        mymap.removeLayer(dybde);
+                    }}
+                if (zoomlevel <= 12) {
+                    if (
+                        mymap.hasLayer(dybde)) {
+                    } else {
+                      mymap.addLayer(dybde);
+                    }}
+            });
+
             
         //   *********** her oprettes kortlag **********
 
