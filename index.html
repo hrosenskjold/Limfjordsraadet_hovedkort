@@ -179,7 +179,7 @@
         </div>
         <div id="divFilterProjekter" class="col-xs-12">
             <div class="col-xs-12" >
-               <input  type='radio' name='fltProjekter' value='Alle' checked >  <label  ><img src="img/CMN logo1.png" width="50px" alt="">&nbsp&nbsp&nbsp Alle projekter</label>
+               <input  type='radio' name='fltProjekter' value='Alle' checked >  <label  ><img src="img/CMN logo1.png" width="50px" alt="">&nbsp&nbsp&nbsp Alle vådområdeprojekter</label>
             </div>
                <div class="col-xs-12">
             </div>
@@ -307,7 +307,7 @@
         lyrVLBpkt = L.geoJSON.ajax('data/VLB_pkt_2021.geojson',{pointToLayer:returnVLBpktMarker, onEachFeature:processVLBpkt, filter:filterVLBpkt}).addTo(mymap);
 
         
-        lyrProjekter = L.geoJSON.ajax('data/Vådområder.geojson', {pointToLayer:returnProjekterMarker, onEachFeature:processProjekter, filter:filterProjekter}).addTo(mymap);
+        lyrProjekter = L.geoJSON.ajax('data/Vådområder140922.geojson', {pointToLayer:returnProjekterMarker, onEachFeature:processProjekter, filter:filterProjekter}).addTo(mymap);
         lyrProjekter.on('data:loaded', function(){
                     arProjekterIDs.sort(function(a,b){return a-b});
                     $("#txtFindProject").autocomplete({
@@ -378,7 +378,8 @@
                    "<h4><strong><center>"+"Kvælstofvådområde "+"</center></strong></h4>"+
                     "<h5><strong>Lokalitet: </strong>"+att.Lokalitet+"</h5>"+
                     "<h5><strong>Areal: </strong>"+att.Areal+" ha"+"</h5>"+
-                   "<h5><strong>Status: </strong>"+att.Status+"</h5>"
+                   "<h5><strong>Status: </strong>"+att.Status+"</h5>"+
+                   "<h5><strong> </strong>"+att.Beskriv+"</h5>"
                      );} 
 
                      else if  (att.TYPE=='P') {
@@ -386,14 +387,18 @@
                     "<h4><strong><center>"+"Fosforådalsprojekt "+"</center></strong></h4>"+
                     "<h5><strong>Lokalitet: </strong>"+att.Lokalitet+"</h5>"+
                     "<h5><strong>Areal: </strong>"+att.Areal+" ha"+"</h5>"+
-                   "<h5><strong>Status: </strong>"+att.Status+"</h5>"
+                   "<h5><strong>Status: </strong>"+att.Status+"</h5>"+
+                   "<h5><strong> </strong>"+att.Beskriv+"</h5>"
+
                      );} 
 
                     else {
                         lyr.bindPopup(	
                     "<h4><strong><center>"+"Projekttype:  " +att.TYPE+"</center></strong></h4>"+
                     "<h5><strong>Areal: </strong>"+att.Areal+"</h5>"+
-                    "<h5><strong>Læs mere: </strong>"+"<b></b><a href="+att.Beskriv+">"+att.Lokalitet+"</a></h5>"
+                    "<h5><strong>Læs mere: </strong>"+"<b></b><a href="+att.Beskriv+">"+att.Lokalitet+"</a></h5>"+
+                    "<h5><strong> </strong>"+att.Beskriv+"</h5>"
+
                      );}  
 
                arProjekterIDs.push(att.Lokalitet.toString())
