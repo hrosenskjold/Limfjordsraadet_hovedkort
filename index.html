@@ -173,9 +173,9 @@
                     </p>
                 </h4>
                 
-           <!-- Her styres html og bootstrap for filter button -->
+           <!-- Her styres filter button -->
 
-
+    
         </div>
         <div id="divFilterProjekter" class="col-xs-12">
             <div class="col-xs-12" >
@@ -222,22 +222,8 @@
             var ctlSidebar
             var ctlEasybutton
             var lyrProjekter
-            var lyrGarn
-            var lyrSæler
-            var lyrVLBstrk
-            var lyrVLBpkt
-            var lavbund
-            var fosfor
-            var Spøgelsesnet
-            var kvælstof
-            var ecoEngineering
-            var aalegraes
-            var kystzonen
-            var arProjekterIDs = [];
-            var arGarnIDs = [];
-            var arSælerIDs = [];
-            var arVLBstrkIDs = [];
-            var arVLBpktIDs = [];
+              var arProjekterIDs = [];
+     
 
 
 
@@ -251,7 +237,6 @@
                 kvælstof = L.icon({iconUrl:'img/Kvælstof.png', iconSize:[15,15], iconAnchor:[5,5]});
                 fosfor = L.icon({iconUrl:'img/fosfor.png', iconSize:[15,15], iconAnchor:[5,5]});
                 Sæler = L.icon({iconUrl:'img/Sæler.png', iconSize:[15,15], iconAnchor:[5,5]});
-                VLBstrk = L.icon({iconUrl:'img/VLBstrk.png', iconSize:[40,40], iconAnchor:[20,20]});
                 VLBpkt = L.icon({iconUrl:'img/Spærring.png', iconSize:[15,15], iconAnchor:[5,5]});
 
 
@@ -337,27 +322,27 @@
         /* Onclick function hvor der zoomes til laget ved click*/
 
         lyrProjekter.on('click', function (e) {
-            mymap.setView(e.latlng, 10);
+            mymap.setView(e.latlng, 12);
                 });
                 
         lyrGarn.on('click', function (e) {
-            mymap.setView(e.latlng, 10);
+            mymap.setView(e.latlng, 12);
                 });
        
         lyrSæler.on('click', function (e) {
-            mymap.setView(e.latlng, 10);
+            mymap.setView(e.latlng, 12);
                 });
 
         lyrVLBstrk.on('click', function (e) {
-            mymap.setView(e.latlng, 10);
+            mymap.setView(e.latlng, 12);
                 });
 
         lyrVLBpkt.on('click', function (e) {
-            mymap.setView(e.latlng, 10);
+            mymap.setView(e.latlng, 12);
                 });
                       
 
-        // Her laves marker
+        // Her laves marker for projekter
        function returnProjekterMarker(json, latlng){
                 var att = json.properties;
                 if (att.TYPE=='Lavbund') {
@@ -387,7 +372,6 @@
                     "<h5><strong>Lokalitet: </strong>"+att.Lokalitet+"</h5>"+
                     "<h5><strong>Areal: </strong>"+att.Areal+" ha"+"</h5>"+
                    "<h5><strong>Status: </strong>"+att.Status+"</h5>"
-            //        "<h5><strong>Læs mere: </strong>"+"<b></b><a href="+att.Beskriv+">"+att.Lokalitet+"</a></h5>"
                      );}  
 
               //popup for N og P
@@ -421,6 +405,8 @@
 
                arProjekterIDs.push(att.Lokalitet.toString())
             }
+
+        // Her laves marker for garn
         function returnGarnMarker(json, latlng){
                 var att = json.properties;
 
@@ -432,6 +418,8 @@
                 }
                 return L.marker(latlng, {icon:projekttype})
                 }
+
+        // Her laves popup for garn
         function processGarn(json, lyr){
                    var att = json.properties;
                    att.TYPE=='Spøgelsesnet'
@@ -441,9 +429,10 @@
                    "<h5><strong>Status: </strong>"+att.FJERNET+"</h5>"
                     );
 
-               arProjekterIDs.push(att.TYPE.toString())
             
                 }
+
+         // Her laves marker for sæler
         function returnSælerMarker(json, latlng){
                 var att = json.properties;
 
@@ -455,6 +444,8 @@
                 }
                 return L.marker(latlng, {icon:projekttype})
                 }
+
+          // Her laves popup for sæler
         function processSæler(json, lyr){
                    var att = json.properties;
                    att.TYPE=='Sæler'
@@ -464,21 +455,9 @@
                    "<h5><strong>Vandtype </strong>"+att.VANDTYPE1+"</h5>"
                     );
 
-        arProjekterIDs.push(att.TYPE.toString())
                             }
                            
-                           
-        function returnVLBstrkMarker(json, latlng){
-                var att = json.properties;
-
-                if (att.TYPE=='Vandplanindsats') {
-                var projekttype = VLBstrk;
-                } 
-                else {
-                    var projekttype = kvælstof;
-                }
-                return L.marker(latlng, {icon:projekttype})
-                }
+          // Her laves popup for strækninger
         function processVLBstrk(json, lyr){
                    var att = json.properties;
                    att.TYPE=='Vandplansindsats'
@@ -490,10 +469,9 @@
                     "<h5><strong>Indsatstype(r): </strong>"+att.TYPE_2018+"</h5>"+
                     "<h5><strong>Status pr. 1/1 2022: </strong>"+att.STATUS2021+"</h5>"
                     );
-
-        arProjekterIDs.push(att.TYPE.toString())
                             }
 
+           // Her laves marker for pkt vandløb
         function returnVLBpktMarker(json, latlng){
                 var att = json.properties;
 
@@ -505,6 +483,8 @@
                 }
                 return L.marker(latlng, {icon:projekttype})
                 }
+
+            // Her laves popup for pkt vandløb
         function processVLBpkt(json, lyr){
                    var att = json.properties;
                    att.TYPE=='Vandplanindsats'
@@ -517,7 +497,6 @@
                     "<h5><strong>Status pr. 1/1 2022: </strong>"+att.STATUS2021+"</h5>"
                     );
 
-        arProjekterIDs.push(att.TYPE.toString())
                             }       
          // her laves filter til kortlag - ikke en del af radiobuttons
             function filterProjekter(json){
@@ -564,66 +543,8 @@
                 }
             });
 
-            // radio function
 
-            function filterProjekter(json){
-                var att=json.properties;
-                var optFilter = $("input[name=fltProjekter]:checked").val();
-                if(optFilter=="Alle"){
-                    return true;
-            } else {
-                return (att.Type==optFilter);
-            }
-            }
-
-            function filterGarn(json){
-                var att=json.properties;
-                var optFilter = $("input[name=fltGarn]:checked").val();
-                if(optFilter=="Alle"){
-                    return true;
-            } else {
-                return (att.TYPE==optFilter);
-            }
-            }
-
-            function filterSæler(json){
-                var att=json.properties;
-                var optFilter = $("input[name=fltSæler]:checked").val();
-                if(optFilter=="Alle"){
-                    return true;
-            } else {
-                return (att.TYPE==optFilter);
-            }
-            }
-
-            function filterVLBstrk(json){
-                var att=json.properties;
-                var optFilter = $("input[name=fltVLBstrk]:checked").val();
-                if(optFilter=="Alle"){
-                    return true;
-            } else {
-                return (att.TYPE==optFilter);
-            }
-            }
-            function filterVLBpkt(json){
-                var att=json.properties;
-                var optFilter = $("input[name=fltVLBpkt]:checked").val();
-                if(optFilter=="Alle"){
-                    return true;
-            } else {
-                return (att.TYPE==optFilter);
-            }
-            }
-            //radio button j-query
-           
-            $("#lblProject").click(function(){
-                $("#divProjectData").toggle(); 
-            });
-           
-            $("input[name=fltProjekter]").click(function(){
-                arProjekterIDs=[];
-                lyrProjekter.refresh();
-            });
+    
             
 
             //  ***********  General Functions til søgning og til at loope igennem geojson *********
