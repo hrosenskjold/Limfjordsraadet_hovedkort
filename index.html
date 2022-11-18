@@ -274,10 +274,10 @@
                 ctlScale = L.control.scale({position:'bottomleft', metric:true,imperial:false, maxWidth:200}).addTo(mymap);
 
         //   *********** her oprettes ekstra lag **********          
-                var dybde = L.esri.dynamicMapLayer({
-                url: "https://gis.aalborg.dk/akbms/rest/services/Limf/Limf_Dybde/MapServer",
-            
-            }).addTo(mymap);
+          //      var dybde = L.esri.dynamicMapLayer({
+            //    url: "https://gis.aalborg.dk/akbms/rest/services/Limf/Limf_Dybde/MapServer",
+                      //  }).addTo(mymap);
+            var wmsTopography = L.tileLayer.wms('https://api.dataforsyningen.dk/ddm?service=WMS?', {layers: 'ddm_50m_dybde_relief' ,  opacity:0.8,     format: 'image/png', transparent: true,zIndex:2}).addTo(mymap);
 
         //   *********** her oprettes indstilles visning på zoomniveau for dybdekort**********          
 
