@@ -16,8 +16,6 @@
         <link rel="stylesheet" href="src/plugins/leaflet.awesome-markers.css">
         <link rel="stylesheet" href="src/plugins/leaflet-mapkey/MapkeyIcons.css">
         <link rel="stylesheet" href="src/plugins/leaflet-mapkey/L.Icon.Mapkey.css">
-        <link rel="stylesheet" href="src/plugins/MarkerCluster.css">
-        <link rel="stylesheet" href="src/plugins/MarkerCluster.Default.css">
         <link rel="stylesheet" href="src/jquery-ui.min.css">
         
         <script src="src/leaflet-src.js"></script>
@@ -31,7 +29,6 @@
         <script src="src/plugins/leaflet.sprite.js"></script>
         <script src="src/plugins/leaflet.awesome-markers.min.js"></script>
         <script src="src/plugins/leaflet-mapkey/L.Icon.Mapkey.js"></script>
-        <script src="src/plugins/leaflet.markercluster.js"></script>
         <script src="src/jquery-ui.min.js"></script>
 
         <!-- Load Esri Leaflet til dybdekort-->
@@ -274,10 +271,10 @@
                 ctlScale = L.control.scale({position:'bottomleft', metric:true,imperial:false, maxWidth:200}).addTo(mymap);
 
         //   *********** her oprettes ekstra lag **********          
-                var dybde = L.esri.dynamicMapLayer({
-                url: "https://gis.aalborg.dk/akbms/rest/services/Limf/Limf_Dybde/MapServer",
-            
-            }).addTo(mymap);
+          //      var dybde = L.esri.dynamicMapLayer({
+            //    url: "https://gis.aalborg.dk/akbms/rest/services/Limf/Limf_Dybde/MapServer",
+                      //  }).addTo(mymap);
+            var dybde = L.tileLayer.wms('https://api.dataforsyningen.dk/ddm?service=WMS?', {layers: 'ddm_50m_dybde_relief' ,  opacity:0.8,     format: 'image/png', transparent: true,zIndex:2}).addTo(mymap);
 
         //   *********** her oprettes indstilles visning på zoomniveau for dybdekort**********          
 
@@ -456,7 +453,7 @@
                     );
 
                             }
-                           
+                      
           // Her laves popup for strækninger
         function processVLBstrk(json, lyr){
                    var att = json.properties;
